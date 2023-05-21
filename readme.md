@@ -116,8 +116,51 @@ private Node remove(Node current, K key) {
         return root.value;
     }
 ```
-### ➕
+### ➕ findTheSmallestValue()
+**Description**: Finds the smallest value in a tree
+```java
+private Node findSmallestValue(Node root) {
+        while (root.left != null) {
+            root = root.left;
+        }
+        return root;
+    }
+```
+### ➕ 
 **Description**:
 ```java
 
+```
+### ➕ 
+**Description**: 
+```java
+
+```
+
+
+
+
+
+# Node
+### ➕ Node()
+**Description**: Constructor of the Node class
+```java
+public Node(K key, V value) {
+        this.key = key;
+        this.value = value;
+        }
+```
+### ➕ getKey(()
+**Description**:  Returns the key of the node.
+```java
+public K getKey() {
+            return key;
+        }
+```
+### ➕ getValue()
+**Description**:  Returns the value of the node.
+```java
+public V getValue() {
+            return value;
+        }
 ```
