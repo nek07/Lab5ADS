@@ -105,5 +105,11 @@ public class MyBinaryTree<K extends Comparable<K>,V> {
         }
 
     }
-    
+    public V get(K key){
+        Node node = getNode(root,key);
+        if(node==null){
+            return null;
+        }
+        return node.getValue();
+    }
 }
