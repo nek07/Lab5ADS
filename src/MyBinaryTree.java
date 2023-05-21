@@ -23,9 +23,10 @@ public class MyBinaryTree<K extends Comparable<K>,V> {
         if(current == null){
             return new Node(key,value);
         }
-        if(key.hashCode()<current.key.hashCode()){
+        int cpt=key.compareTo(current.getKey());
+        if(cpt<0){
             current.left = insert(current.left, key, value);
-        } else if (key.hashCode()>current.key.hashCode()) {
+        } else if (cpt>0) {
             current.right = insert(current.right, key, value);
         }
         return current;
@@ -33,6 +34,42 @@ public class MyBinaryTree<K extends Comparable<K>,V> {
     public void insert(K key, V value){
         root = insert(root,key,value);
         size++;
+    }
+    private Node remove(Node current, K key){
+        if(current == null) {
+            return null;
+        }
+        int cpt=key.compareTo(current.getKey());
+        if(cpt<0){
+            current.left = remove(current.left, key);
+        }
+        if (cpt>0) {
+            current.right = remove(current.right, key);
+            }
+        else {
+                //case 1: no children
+                if (current.left == null && current.right == null) {
+                    return null;
+                }
+                ;
+                //case 2:  1 child
+                if (current.left == null) {
+                    return current.right;
+                }
+                if (current.right == null) {
+                    return current.left;
+                }
+                //case3: two children
+                K smallestValue = findSmallestValue(current.right);
+                current.key = smallestValue;
+                current.right = remove(current.right, key);
+        }
+        return current;
+    }
+
+    public V remove(K key){
+        root = remove(root,key);
+        return root.value;
     }
     private void inOrder(Node node){
         if(node !=null){
@@ -46,5 +83,8 @@ public class MyBinaryTree<K extends Comparable<K>,V> {
     }
     public int size(){
         return size;
+    }
+    private K findSmallestValue(Node root){
+        return root.left.key == null ? root.key : findSmallestValue(root.left);
     }
 }
