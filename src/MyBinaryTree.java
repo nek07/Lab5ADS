@@ -60,9 +60,10 @@ public class MyBinaryTree<K extends Comparable<K>,V> {
                     return current.left;
                 }
                 //case3: two children
-                K smallestValue = findSmallestValue(current.right);
-                current.key = smallestValue;
-                current.right = remove(current.right, key);
+                Node node = findSmallestValue(current.right);
+                current.key = node.key;
+                current.value = node.value;
+                current.right = remove(current.right, node.key);
         }
         return current;
     }
@@ -84,7 +85,25 @@ public class MyBinaryTree<K extends Comparable<K>,V> {
     public int size(){
         return size;
     }
-    private K findSmallestValue(Node root){
-        return root.left.key == null ? root.key : findSmallestValue(root.left);
+    private Node findSmallestValue(Node root){
+        while(root.left!=null){
+            root=root.left;
+        }
+        return root;
     }
+    private Node getNode(Node node,K key) {
+        if (node == null || key.equals(node.getKey())) {
+            return node;
+        }
+
+        int cpt = key.compareTo(node.getKey());
+        if (cpt < 0) {
+            return getNode(node.left, key);
+        }
+        else{
+            return getNode(node.right, key);
+        }
+
+    }
+    
 }
