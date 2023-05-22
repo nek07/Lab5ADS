@@ -126,16 +126,53 @@ private Node findSmallestValue(Node root) {
         return root;
     }
 ```
-### ➕ 
-**Description**:
+### ➕ iterator()
+**Description**: Iterate nodes by calling `InOrderTraversal` class.
 ```java
+ public Iterator<Node> iterator() {
+        return new InOrderTraversal();
+    }
+``` 
 
-```
-### ➕ 
-**Description**: 
+# InOrderTraversal
+### ➕ InOrderTraversal()
+**Description**: Constructor of the class
 ```java
-
+public InOrderTraversal() {
+            stack = new Stack<>();
+            pushAll(root);
+        }
 ```
+### hasNext()
+**Description**: Checks is the next element not null or null, respectively return false or true.
+```java
+@Override
+        public boolean hasNext() {
+            return !stack.isEmpty();
+        }
+``` 
+**Description**: Returns next node if it is not null, otherwise throw `NoSuchElementException()` exception.
+```java
+@Override
+        public Node next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            Node node = stack.pop();
+            pushAll(node.right);
+
+            return new Node(node.key, node.value);
+        }
+``` 
+**Description**: Insert all nodes in binary search tree to stack
+```java
+private void pushAll(Node node) {
+            while (node != null) {
+                stack.push(node);
+                node = node.left;
+            }
+        }
+``` 
 
 
 
