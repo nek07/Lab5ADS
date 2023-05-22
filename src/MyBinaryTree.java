@@ -6,10 +6,13 @@ public class MyBinaryTree<K extends Comparable<K>,V> implements Iterable<MyBinar
     private Node root;
     private int size = 0;
 
+
+
     public class Node {
         private K key;
         private V value;
         private Node left, right;
+
         /*
          * Constructs a node with the given key and value.
          *
@@ -127,12 +130,13 @@ public class MyBinaryTree<K extends Comparable<K>,V> implements Iterable<MyBinar
         return root.value;
 
     }
+
     /*
        Return the size of binary search tree
      */
-        public int getSize() {
-            return size;
-        }
+    public int getSize() {
+        return size;
+    }
 
     private Node findSmallestValue(Node root) {
         while (root.left != null) {
@@ -140,6 +144,7 @@ public class MyBinaryTree<K extends Comparable<K>,V> implements Iterable<MyBinar
         }
         return root;
     }
+
     /*
      * Retrieves the node with the specified key from the binary tree.
      *
@@ -160,6 +165,7 @@ public class MyBinaryTree<K extends Comparable<K>,V> implements Iterable<MyBinar
         }
 
     }
+
     /*
      * Retrieves the value associated with the specified key from the binary tree.
      *
@@ -174,20 +180,13 @@ public class MyBinaryTree<K extends Comparable<K>,V> implements Iterable<MyBinar
         return node.getValue();
     }
 
-
-    private void inOrder(Node node) {
-        if (node != null) {
-            inOrder(node.left);
-            System.out.print(node.value + " ");
-            inOrder(node.right);
-        }
-    }
-
-    public void inOrder() {
-        inOrder(root);
-    }
-    private class inOrderTraversal implements Iterator<Node>{
+    private class InOrderTraversal implements Iterator<Node> {
         private Stack<Node> stack;
+        public InOrderTraversal() {
+            stack = new Stack<>();
+            pushAll(root);
+        }
+
         @Override
         public boolean hasNext() {
             return !stack.isEmpty();
@@ -195,20 +194,25 @@ public class MyBinaryTree<K extends Comparable<K>,V> implements Iterable<MyBinar
 
         @Override
         public Node next() {
-            if(!hasNext()){
+            if (!hasNext()) {
                 throw new NoSuchElementException();
             }
             Node node = stack.pop();
             pushAll(node.right);
+
             return new Node(node.key, node.value);
         }
-        public Node pushAll(Node node){
-            while(node!=null){
-                stack.push(node.left);
+
+        private void pushAll(Node node) {
+            while (node != null) {
+                stack.push(node);
                 node = node.left;
+            }
         }
     }
-
+    public Iterator<Node> iterator() {
+        return new InOrderTraversal();
+    }
 
 
 }
