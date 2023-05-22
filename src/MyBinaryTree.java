@@ -187,14 +187,17 @@ public class MyBinaryTree<K extends Comparable<K>,V> implements Iterable<MyBinar
         inOrder(root);
     }
     private class inOrderTraversal implements Iterator<Node>{
+        private Stack<Node> stack;
         @Override
         public boolean hasNext() {
-            return false;
+            return !stack.isEmpty();
         }
 
         @Override
         public Node next() {
-            return null;
+            if(!hasNext()){
+                throw new NoSuchElementException();
+            }
         }
     }
 
