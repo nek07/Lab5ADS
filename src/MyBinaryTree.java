@@ -198,6 +198,9 @@ public class MyBinaryTree<K extends Comparable<K>,V> implements Iterable<MyBinar
             if(!hasNext()){
                 throw new NoSuchElementException();
             }
+            Node node = stack.pop();
+            pushAll(node.right);
+            return new Node(node.key, node.value);
         }
         public Node pushAll(Node node){
             while(node!=null){
