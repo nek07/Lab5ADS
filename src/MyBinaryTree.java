@@ -186,7 +186,17 @@ public class MyBinaryTree<K extends Comparable<K>,V> implements Iterable<MyBinar
     public void inOrder() {
         inOrder(root);
     }
+    private class inOrderTraversal implements Iterator<Node>{
+        @Override
+        public boolean hasNext() {
+            return false;
+        }
 
+        @Override
+        public Node next() {
+            return null;
+        }
+    }
 
 
 
