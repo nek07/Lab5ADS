@@ -120,7 +120,6 @@ public class MyBinaryTree<K extends Comparable<K>,V> implements Iterable<MyBinar
 
     /*
      * Removes a node with the specified key from the binary tree.
-     *
      * @param key the key to remove
      * @return the value associated with the removed key
      */
@@ -147,7 +146,6 @@ public class MyBinaryTree<K extends Comparable<K>,V> implements Iterable<MyBinar
 
     /*
      * Retrieves the node with the specified key from the binary tree.
-     *
      * @param node the current node being considered
      * @param key  the key to search for
      * @return the node with the specified key, or null if not found
@@ -168,7 +166,6 @@ public class MyBinaryTree<K extends Comparable<K>,V> implements Iterable<MyBinar
 
     /*
      * Retrieves the value associated with the specified key from the binary tree.
-     *
      * @param key the key to search for
      * @return the value associated with the key, or null if not found
      */
@@ -182,16 +179,27 @@ public class MyBinaryTree<K extends Comparable<K>,V> implements Iterable<MyBinar
 
     private class InOrderTraversal implements Iterator<Node> {
         private Stack<Node> stack;
+        /*
+         * Constructs an in-order traversal iterator.
+         */
         public InOrderTraversal() {
             stack = new Stack<>();
             pushAll(root);
         }
-
+        /*
+         * Checks if there is another node to be traversed.
+         * @return true if there is another node, false otherwise
+         */
         @Override
         public boolean hasNext() {
             return !stack.isEmpty();
         }
 
+        /*
+         * Retrieves the next node in the in-order traversal.
+         * @return the next node in the traversal
+         * @throws NoSuchElementException if there are no more nodes to traverse
+         */
         @Override
         public Node next() {
             if (!hasNext()) {
@@ -199,10 +207,14 @@ public class MyBinaryTree<K extends Comparable<K>,V> implements Iterable<MyBinar
             }
             Node node = stack.pop();
             pushAll(node.right);
-
+            // Create a new Node instance with the same key and value
+            // to ensure encapsulation of the original tree nodes
             return new Node(node.key, node.value);
         }
-
+        /*
+         * Helper method to push all nodes in the subtree rooted at the given node onto the stack.
+         * @param node the root of the subtree to be pushed onto the stack
+         */
         private void pushAll(Node node) {
             while (node != null) {
                 stack.push(node);
@@ -210,6 +222,10 @@ public class MyBinaryTree<K extends Comparable<K>,V> implements Iterable<MyBinar
             }
         }
     }
+    /*
+     * Returns an iterator for performing an in-order traversal of the binary search tree.
+     * @return an iterator for in-order traversal
+     */
     public Iterator<Node> iterator() {
         return new InOrderTraversal();
     }
