@@ -1,10 +1,12 @@
-import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Stack;
 
-public class MyBinaryTree<K extends Comparable<K>,V> {
+public class MyBinaryTree<K extends Comparable<K>,V> implements Iterable<MyBinaryTree<K, V>.Node> {
     private Node root;
     private int size = 0;
 
-    private class Node {
+    public class Node {
         private K key;
         private V value;
         private Node left, right;
@@ -138,7 +140,13 @@ public class MyBinaryTree<K extends Comparable<K>,V> {
         }
         return root;
     }
-
+    /*
+     * Retrieves the node with the specified key from the binary tree.
+     *
+     * @param node the current node being considered
+     * @param key  the key to search for
+     * @return the node with the specified key, or null if not found
+     */
     private Node getNode(Node node, K key) {
         if (node == null || key.equals(node.getKey())) {
             return node;
@@ -152,7 +160,12 @@ public class MyBinaryTree<K extends Comparable<K>,V> {
         }
 
     }
-
+    /*
+     * Retrieves the value associated with the specified key from the binary tree.
+     *
+     * @param key the key to search for
+     * @return the value associated with the key, or null if not found
+     */
     public V get(K key) {
         Node node = getNode(root, key);
         if (node == null) {
@@ -174,23 +187,7 @@ public class MyBinaryTree<K extends Comparable<K>,V> {
         inOrder(root);
     }
 
-    public Iterable<Node> iterator() {
-        ArrayList<Node> arrList = inOrderTraversal(new ArrayList<>(),root);
-        return (Iterable) arrList;
 
-    }
-    private ArrayList<Node> inOrderTraversal(ArrayList arrList,Node node){
-        if(node==null){
-            return null;
-        }
-        if(node.left!=null){
-            arrList.add(inOrderTraversal(arrList,node.left));
-        }
-        arrList.add(node);
-        if(node.right!=null){
-            arrList.add(inOrderTraversal(arrList,node.right));
-        }
-        return arrList;
-    }
+
 
 }
