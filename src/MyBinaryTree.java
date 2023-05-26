@@ -22,6 +22,7 @@ public class MyBinaryTree<K extends Comparable<K>,V> implements Iterable<MyBinar
         public Node(K key, V value) {
             this.key = key;
             this.value = value;
+
         }
 
         /*
@@ -229,6 +230,20 @@ public class MyBinaryTree<K extends Comparable<K>,V> implements Iterable<MyBinar
     public Iterator<Node> iterator() {
         return new InOrderTraversal();
     }
-
+    /*
+      Check is the key exists in the binary tree.
+      @param K key - key of the value in bst.
+      @Return boolean type, if elem exist true, otherwise false.
+     */
+    public boolean contains(K key){
+        Node node = getNode(root, key);
+        if (node == null) {
+            return false;
+        }
+        if(key.equals(node.getKey())){
+            return true;
+        }
+        return false;
+    }
 
 }
