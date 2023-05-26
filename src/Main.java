@@ -23,6 +23,10 @@ public class Main {
         System.out.println("\nSize is " + mbt.getSize());
         System.out.println("\nValue of key 13 is "+ mbt.get(13));
 
+        mbt.insert(100,"Margaret");
+        System.out.println("contains 100 - " +mbt.contains(100));
+        System.out.println("contains 200 - " +mbt.contains(200));
+
     }
 
 }
